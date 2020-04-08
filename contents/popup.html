@@ -1,0 +1,79 @@
+<html>
+<head>
+  <style>
+    .popup_wrap input {
+      display: none;
+    }
+
+    .popup_overlay {
+      display: flex;
+      justify-content: center;
+      overflow: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      transition: opacity 0.5s, transform 0s 0.5s;
+      transform: scale(0);
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 0.5s;
+    }
+
+    .popup_trigger {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .popup_content {
+      position: relative;
+      align-self: center;
+      width: 90%;
+      max-width: 800px;
+      padding: 30px 30px 15px;
+      box-sizing: border-box;
+      background: #fff;
+      line-height: 1.4em;
+      transition: 0.5s;
+    }
+
+    .close_btn {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .popup_overlay {
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 0.5s;
+    }
+
+    .popup_wrap input:checked ~ .popup_overlay {
+      opacity: 0;
+      transform: scale(1);
+      transition: opacity 0.5s;
+    }
+  </style>
+</head>
+<body>
+  <div class='popup_wrap'>
+    <input id='trigger' type='checkbox'>
+    <div class='popup_overlay'>
+        <label for='trigger' class='popup_trigger'></label>
+        <div class='popup_content'>
+          <label for='trigger' class='close_btn'>×</label>
+          <p>ここにポップアップウィンドウの中身を入れます。画像も入りますし、動画も入ります。</p>
+        </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>
