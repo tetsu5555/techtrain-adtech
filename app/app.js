@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const port = 8080
 
+const contents = require("./contents")
+
 const cors = require("cors")
 app.use(cors({ origin: true, credentials: true }))
 
@@ -10,27 +12,24 @@ app.use(cookieParser())
 
 const data = {}
 
+const cookie_middleware = require("./cookie_middleware")
+app.use(cookie_middleware(data))
+
 app.get('/', (req, res) => {
-
-  console.log("cookie", req.cookies)
-
-  if (req.cookies.userId) {
-    // 二回以降の訪問
-    const userId = req.cookies.userId
-    if (data[userId]) {
-      data[userId] = data[userId] + 1
-    }
-  } else {
-    // 初回訪問
-    // TODO: 被らないキーを発行する
-    const userId = Date.now()
-    res.cookie("userId", userId);
-    data[userId] = 1
-  }
-
-  console.log("this is data", data)
+  console.log(req.query)
   
-  res.send('Hello World!')
+  // TODO: 配信をもっと高度な実装にする
+  const userId = req.cookies.userId
+  if (data[userId] > 2) {
+    res.json({
+      text: contents.popup
+    })
+  } else {
+    res.json({
+      text: contents.message
+    })
+  }
+  
 })
 
 app.get('/count', (req, res) => {
