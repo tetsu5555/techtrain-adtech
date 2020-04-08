@@ -1,3 +1,5 @@
+const uuidv4 = require("uuid").v4
+
 module.exports = (data) => {
   return function (req, res, next) {
     console.log("cookie", req.cookies)
@@ -7,10 +9,7 @@ module.exports = (data) => {
     // Cookieが発行されていない場合
     if (!userId) {
       // 初回訪問
-      // TODO: 被らないキーを発行する
-      // uuidを使う
-      const userId_cookie = Date.now()
-      res.cookie("userId", userId_cookie);
+      res.cookie("userId", uuidv4());
       data[userId] = {}
       data[userId][path] = {}
       data[userId][path]["count"] = 1
