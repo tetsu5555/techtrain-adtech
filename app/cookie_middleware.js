@@ -14,7 +14,8 @@ module.exports = (data) => {
       data[userId] = {}
       data[userId][path] = {}
       data[userId][path]["count"] = 1
-      return
+      console.log("this is data", data)
+      return next()
     }
 
     // Cookieは発行されているが、データがメモリから消えてしまっている場合
@@ -23,7 +24,12 @@ module.exports = (data) => {
       data[userId] = {}
       data[userId][path] = {}
       data[userId][path]["count"] = 1
-      return
+      console.log("this is data", data)
+      return next()
+    }
+
+    if (!data[userId][path]) {
+      data[userId][path] = {}
     }
 
     // 二回以降の訪問
